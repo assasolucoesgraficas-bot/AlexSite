@@ -30,17 +30,14 @@
             height: 100px;
             padding: 0 8%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Centraliza a logo já que não há botões */
             align-items: center;
             color: var(--color-white);
             position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--color-white); }
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--color-white); text-decoration: none; }
         .logo img { height: 60px; width: auto; }
-        nav ul { display: flex; gap: 30px; list-style: none; }
-        nav ul li a { font-weight: 500; font-size: 0.9rem; color: white; text-decoration: none; opacity: 0.9; }
-        nav ul li a:hover { opacity: 1; text-decoration: underline; }
 
         .page-header {
             background: var(--color-bg-light);
@@ -94,26 +91,17 @@
         @media (max-width: 900px) {
             .about-container, .about-container:nth-child(even) { flex-direction: column; text-align: center; gap: 30px; }
             .about-image img { height: 300px; }
-            header { padding: 0 5%; justify-content: center; }
-            nav { display: none; }
+            header { padding: 0 5%; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
+        <a href="SiteAlexindex.html" class="logo">
             <img src="LOGO.jpg" alt="Logo Alex Soluções Gráficas">
             <span>Alex Soluções Gráficas</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="SiteAlexindex.html">Início</a></li>
-                <li><a href="SiteAlexindex.html">Quem somos</a></li>
-                <li><a href="SiteAlexindex.html#servicos">Serviços</a></li>
-                <li><a href="SiteAlexindex.html#contato">Contato</a></li>
-            </ul>
-        </nav>
+        </a>
     </header>
 
     <section class="page-header">
@@ -136,7 +124,7 @@
         <div class="about-container">
             <div class="about-text">
                 <h2>Compromisso com o Cliente</h2>
-                <p>Acreditamos que uma boa impressão é a porta de entrada para grandes negócios. Por isso, investimos em tecnologia e processos que garantem cores vibrantes e materiais resistentes, seja para um simples cartão de visitas ou para uma fachada completa.</p>
+                <p>Acreditamos que uma boa impressão é a porta de entrada para grandes negócios. Por isso, investimos em tecnologia e processos que garantem cores vibrantes e materiais resistentes.</p>
                 <p>Nosso diferencial está no atendimento humanizado e na agilidade, garantindo que suas ideias saiam do papel com a velocidade que o mercado exige.</p>
             </div>
             <div class="about-image">
