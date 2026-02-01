@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Soluções Gráficas</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================= */
+        /* --- ESTILOS GERAIS (DESKTOP PADRÃO) --- */
+        /* ========================================= */
+        :root {
+            --color-blue: #0F4C81;
+            --color-pink: #C2185B;
+            --color-dark: #050A30;
+            --color-text: #666666;
+            --color-white: #FFFFFF;
+            --color-bg-light: #F8F9FA;
+            --gradient-main: linear-gradient(90deg, #0F4C81 0%, #8E1C66 100%);
+            --shadow-card: 0px 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--color-white); color: var(--color-text); overflow-x: hidden; scroll-behavior: smooth; }
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* HEADER DESKTOP */
+        header {
+            background: var(--gradient-main);
+            height: 100px;
+            padding: 0 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--color-white);
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--color-white); white-space: nowrap; }
+        .logo img { height: 60px; width: auto; object-fit: contain; }
+        
+        /* Menu Desktop */
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { font-weight: 500; font-size: 0.9rem; opacity: 0.9; transition: var(--transition); color: white; }
+        nav ul li a:hover { opacity: 1; text-decoration: underline; }
+
+        .mobile-menu-icon { display: none; cursor: pointer; font-size: 2rem; color: white; margin-bottom: 5px; }
+
+        /* HERO DESKTOP */
+        .hero {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 0 0 0 8%;
+            min-height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+            padding: 80px 50px 80px 0;
+        }
+
+        .hero-title { color: var(--color-dark); font-size: 3rem; font-weight: 800; line-height: 1.2; margin: 0; }
+        .hero-subtitle { font-size: 1.1rem; font-weight: 600; color: #333; margin: 0; }
+        .hero-text { font-size: 1rem; line-height: 1.6; margin: 0; max-width: 450px; }
+
+        .btn-primary {
+            display: inline-block; background-color: var(--color-pink); color: var(--color-white);
+            padding: 15px 35px; border-radius: 50px; font-weight: 600; font-size: 1rem;
+            border: 2px solid var(--color-pink); cursor: pointer; transition: var(--transition);
+        }
+        .btn-primary:hover {
+            background-color: var(--color-white); color: var(--color-pink);
+            transform: translateY(-3px); box-shadow: 0 10px 20px rgba(194, 24, 91, 0.3);
+        }
+
+        /* Container Imagem Hero Desktop */
+        .hero-image { flex: 1; display: flex; position: relative; height: auto; width: 50%; }
+        .hero-slide { position: absolute; top: 0; right: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; }
+        .hero-slide.active { opacity: 1; z-index: 2; }
+
+        /* SERVIÇOS */
+        .services { padding: 80px 8%; background-color: var(--color-bg-light); text-align: center; }
+        .section-title { color: var(--color-dark); font-size: 2rem; font-weight: 700; margin-bottom: 50px; }
+        .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        
+        .service-card {
+            background: var(--color-white); padding: 40px 30px; border-radius: 20px;
+            box-shadow: var(--shadow-card); flex: 1; min-width: 280px; max-width: 350px;
+            transition: var(--transition);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;
+        }
+        .service-card:hover { transform: translateY(-10px); }
+        
+        .service-img {
+            width: 100px; height: 100px; margin-bottom: 20px;
+            transition: transform 0.3s ease; display: block; margin-left: auto; margin-right: auto;
+            object-fit: contain;
+            filter: brightness(0) saturate(100%) invert(8%) sepia(28%) saturate(7276%) hue-rotate(228deg) brightness(92%) contrast(109%);
+        }
+        .service-card:hover .service-img { transform: scale(1.1); }
+        .service-title { color: var(--color-dark); font-size: 1.2rem; font-weight: 700; }
+        .service-desc { font-size: 0.9rem; line-height: 1.5; }
+
+        /* PORTFÓLIO */
+        .portfolio { text-align: center; padding-top: 50px; padding-bottom: 20px; overflow: hidden; }
+        .carousel-window { width: 100%; max-width: 1200px; margin: 0 auto; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .carousel-window::-webkit-scrollbar { display: none; }
+        .carousel-track { display: flex; width: max-content; }
+        .portfolio-item { width: 33.333vw; max-width: 400px; min-width: 300px; padding: 0 15px; cursor: pointer; position: relative; scroll-snap-align: start; }
+        .portfolio-item img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; transition: transform 0.5s ease; }
+        .portfolio-item:hover img { transform: scale(1.05); }
+
+        .portfolio-nav { margin-top: 30px; display: flex; justify-content: flex-end; gap: 20px; height: 60px; max-width: 1200px; margin-left: auto; margin-right: auto; padding-right: 15px; }
+        .nav-btn { background-color: var(--color-pink); color: white; width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--color-pink); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 400; cursor: pointer; transition: all 0.3s ease-in-out; user-select: none; }
+        .nav-btn:hover { background-color: var(--color-white); color: var(--color-pink); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(194, 24, 91, 0.3); }
+        .rotate-icon { display: inline-block; transform: rotate(180deg); }
+
+        /* CLIENTES */
+        .testimonials { padding-top: 60px; padding-bottom: 150px; background: linear-gradient(180deg, #FFFFFF 0%, #F0F2F5 100%); position: relative; text-align: center; }
+        .testimonials-window { width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; }
+        .testimonials-track { display: flex; width: 200%; transition: transform 1s ease-in-out; }
+        .testimonial-card { background: var(--color-white); padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; text-align: left; width: 25%; margin: 0 15px; height: auto; align-self: flex-start; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .testimonial-card:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .client-photo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #eee; }
+        .client-info h4 { color: var(--color-dark); margin-top: 5px; font-weight: 700; }
+        .client-quote { font-style: italic; font-size: 0.9rem; color: #555; margin-bottom: 5px; }
+        .stars { color: #FFD700; font-size: 0.9rem; }
+
+        /* RODAPÉ */
+        footer { background: var(--gradient-main); color: var(--color-white); padding: 80px 8%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+        .footer-col { flex: 1; min-width: 250px; }
+        .footer-logo { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .footer-logo img { height: 40px; width: auto; }
+        .footer-text { font-size: 0.9rem; opacity: 0.8; line-height: 1.6; margin-bottom: 20px; }
+        .social-icons { display: flex; gap: 15px; align-items: center; }
+        .social-icons a { background: rgba(255,255,255,0.2); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: var(--transition); color: var(--color-white); }
+        .social-icons a:hover { background: var(--color-white); color: var(--color-blue); }
+        .whatsapp-icon { filter: brightness(0) invert(1); }
+        .footer-title { font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { font-size: 0.9rem; opacity: 0.8; transition: 0.2s; }
+        .footer-links a:hover { opacity: 1; padding-left: 5px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; font-size: 0.9rem; opacity: 0.9; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); transform: scale(0.8); transition: transform 0.3s ease; object-fit: contain; }
+        .modal.show .modal-content { transform: scale(1); }
+        .close-hint { position: absolute; bottom: 30px; color: white; font-size: 0.9rem; opacity: 0.7; }
+
+        /* ========================================= */
+        /* --- MEDIA QUERIES (MOBILE) --- */
+        /* ========================================= */
+        @media (max-width: 900px) {
+            header {
+                height: auto; min-height: 80px; padding: 15px 5%;
+                align-items: center; flex-wrap: wrap;
+                background: var(--gradient-main);
+            }
+            .logo { 
+                width: 100%; 
+                justify-content: space-between; 
+                color: var(--color-white); 
+                font-size: 1.2rem; 
+            }
+            .mobile-menu-icon { display: block; font-size: 1.8rem; color: var(--color-white); }
+            
+            nav {
+                width: 100%; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0;
+                position: absolute; top: 100%; left: 0; z-index: 999;
+                background-color: var(--color-white); 
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            }
+            nav.active { max-height: 300px; opacity: 1; }
+            
+            nav ul { 
+                display: flex; flex-direction: column; 
+                align-items: center; justify-content: center; 
+                gap: 20px; padding: 30px 0; margin: 0;
+            }
+            nav ul li { width: 100%; text-align: center; } 
+            nav ul li a { color: var(--color-pink); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; }
+
+            .hero { 
+                flex-direction: column-reverse; 
+                padding: 0; 
+                gap: 30px; 
+                text-align: center; 
+                align-items: center;
+                height: auto; min-height: auto;
+            }
+            
+            .hero-content { 
+                width: 100%; max-width: 100%; 
+                display: flex; flex-direction: column; 
+                align-items: center; justify-content: center;
+                padding: 40px 5%;
+            }
+            .hero-text { margin-bottom: 20px; max-width: 100%; }
+            .hero-title { font-size: 2.2rem; }
+            
+            .hero-image { 
+                width: 100%; 
+                height: 0; 
+                padding-bottom: 75%; 
+                justify-content: center; 
+            }
+            .hero-slide { object-fit: cover; height: 100%; border-radius: 0; }
+
+            .services { padding: 50px 5%; }
+            .service-card { width: 100%; }
+
+            .portfolio-nav { display: none !important; }
+            .portfolio-item { width: 85vw; min-width: 85vw; padding: 0 10px; }
+
+            .testimonials-track { width: 400%; } 
+            .testimonial-card { width: 25%; flex-direction: column; text-align: center; padding: 20px; margin: 0; }
+            .client-info { margin-top: 15px; }
+
+            footer { padding: 80px 5% 50px; text-align: center; justify-content: center; }
+            .footer-col { flex: 1 1 100%; margin-bottom: 30px; }
+            .footer-logo { justify-content: center; }
+            .social-icons { justify-content: center; }
+            .contact-item { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="LOGO.jpg" alt="Logo Alex Soluções Gráficas">
+                <span style="white-space: nowrap;">Alex Soluções Gráficas</span>
+            </div>
+            <div class="mobile-menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="quemsomos.html">Quem somos</a></li>
+                <li><a href="SiteAlexindex.html#servicos-section">Serviços</a></li>
+                <li><a href="#rodape-section">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Soluções gráficas</h1>
+            <h2 class="hero-subtitle">Transformando ideias em impressões.</h2>
+            <p class="hero-text">Impressões de alta qualidade, design profissional e atendimento rápido para impulsionar seus projetos.</p>
+            <a href="https://wa.me/5551986487581?text=Olá! Gostaria de solicitar um orçamento." target="_blank" style="text-decoration:none;"><button class="btn-primary">Solicitar Orçamento</button></a>
+        </div>
+        
+        <div class="hero-image">
+            <img src="img1.jpg" class="hero-slide active" alt="Trabalho 1">
+            <img src="img2.jpg" class="hero-slide" alt="Trabalho 2">
+            <img src="img3.jpg" class="hero-slide" alt="Trabalho 3">
+            <img src="img4.jpg" class="hero-slide" alt="Trabalho 4">
+            <img src="img5.jpg" class="hero-slide" alt="Trabalho 5">
+        </div>
+    </section>
+
+    <section class="services" id="servicos-section">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="imp1.svg" alt="Impressão Digital" class="service-img" onerror="this.src='https://placehold.co/100x100?text=ICON'">
+                <h3 class="service-title">Impressão Digital</h3>
+                <p class="service-desc">Seus cartões e flyers impressos com cores fiéis e vibrantes.</p>
+            </div>
+            <div class="service-card">
+                <img src="bill1.svg" alt="Comunicação Visual" class="service-img" onerror="this.src='https://placehold.co/100x100?text=ICON'">
+                <h3 class="service-title">Comunicação Visual</h3>
+                <p class="service-desc">Destaque sua loja e fachada com materiais resistentes.</p>
+            </div>
+            <div class="service-card">
+                <img src="pen1.svg" alt="Design Gráfico" class="service-img" onerror="this.src='https://placehold.co/100x100?text=ICON'">
+                <h3 class="service-title">Design Gráfico</h3>
+                <p class="service-desc">Criação profissional de layouts que valorizam sua marca.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio">
+        <h2 class="section-title">Portfólio</h2>
+        <div class="carousel-window" id="portfolioWindow">
+            <div class="carousel-track" id="track">
+                <div class="portfolio-item" onclick="openModal(this)"><img src="img1.jpg" alt="Trabalho 1"></div>
+                <div class="portfolio-item" onclick="openModal(this)"><img src="img2.jpg" alt="Trabalho 2"></div>
+                <div class="portfolio-item" onclick="openModal(this)"><img src="img3.jpg" alt="Trabalho 3"></div>
+                <div class="portfolio-item" onclick="openModal(this)"><img src="img4.jpg" alt="Trabalho 4"></div>
+                <div class="portfolio-item" onclick="openModal(this)"><img src="img5.jpg" alt="Trabalho 5"></div>
+            </div>
+        </div>
+        <div class="portfolio-nav">
+            <div class="nav-btn" id="btnPrev" style="display: none;" onclick="slidePrev()"><span class="rotate-icon">&#10142;</span></div> 
+            <div class="nav-btn" id="btnNext" onclick="slideNext()">&#10142;</div> 
+        </div>
+    </section>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" id="imgExpanded">
+        <div class="close-hint">Clique fora da imagem para fechar</div>
+    </div>
+
+    <section class="testimonials" id="clientes-section">
+        <h2 class="section-title">Nossos Clientes</h2>
+        <div class="testimonials-window">
+            <div class="testimonials-track" id="clientesTrack">
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria" class="client-photo">
+                    <div class="client-info"><p class="client-quote">"O banner ficou incrível! Foi o destaque do nosso evento corporativo."</p><h4>Maria</h4><div class="stars">★★★★★</div></div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jurandir" class="client-photo">
+                    <div class="client-info"><p class="client-quote">"A fachada da minha loja mudou completamente. Material muito resistente."</p><h4>Jurandir</h4><div class="stars">★★★★☆</div></div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Eunice" class="client-photo">
+                    <div class="client-info"><p class="client-quote">"Os convites de aniversário ficaram maravilhosos! A impressão é perfeita."</p><h4>Eunice</h4><div class="stars">★★★★★</div></div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="João" class="client-photo">
+                    <div class="client-info"><p class="client-quote">"Profissionalismo total. Entregaram meus cartões antes do prazo combinado."</p><h4>João</h4><div class="stars">★★★★★</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="rodape-section">
+        <div class="footer-col">
+            <div class="footer-logo"><img src="LOGO.jpg" alt="Logo" style="height: 30px; width: auto; margin-right: 10px;">Alex Soluções</div>
+            <p class="footer-text">Transformando ideias em impressões. Qualidade, agilidade e design profissional.</p>
+            <div class="social-icons">
+                <a href="https://wa.me/5551986487581?text=Olá! Gostaria de solicitar um orçamento." title="Fale no WhatsApp"><img src="Whats1.svg" width="18" height="18" alt="WhatsApp" class="whatsapp-icon"></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4 class="footer-title">Contato</h4>
+            <div class="contact-item"><span>(51) 986487581</span></div>
+            <div class="contact-item"><span>assasolucoesgraficas@gmail.com</span></div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById("navMenu").classList.toggle("active"); }
+
+        // Hero Slideshow
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentSlideIdx = 0;
+        setInterval(() => {
+            if(heroSlides.length > 0) {
+                heroSlides[currentSlideIdx].classList.remove('active');
+                currentSlideIdx = (currentSlideIdx + 1) % heroSlides.length;
+                heroSlides[currentSlideIdx].classList.add('active');
+            }
+        }, 4000);
+
+        // Portfólio Logic
+        const portfolioWindow = document.getElementById('portfolioWindow');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        
+        function slideNext() {
+            portfolioWindow.scrollBy({ left: portfolioWindow.clientWidth, behavior: 'smooth' });
+            setTimeout(() => { if (portfolioWindow.scrollLeft > 10) btnPrev.style.display = 'flex'; }, 500);
+        }
+        function slidePrev() {
+            portfolioWindow.scrollBy({ left: -portfolioWindow.clientWidth, behavior: 'smooth' });
+            setTimeout(() => { if (portfolioWindow.scrollLeft <= 10) { btnPrev.style.display = 'none'; btnNext.style.display = 'flex'; } }, 500);
+        }
+        portfolioWindow.addEventListener('scroll', () => {
+             if (portfolioWindow.scrollLeft > 50) btnPrev.style.display = 'flex';
+             else { btnPrev.style.display = 'none'; btnNext.style.display = 'flex'; }
+        });
+
+        // Modal
+        function openModal(element) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("imgExpanded");
+            const imgInside = element.querySelector('img');
+            modal.style.display = "flex";
+            setTimeout(() => { modal.classList.add("show"); }, 10);
+            modalImg.src = imgInside.src;
+        }
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.classList.remove("show");
+            setTimeout(() => { modal.style.display = "none"; }, 300);
+        }
+
+        // Clientes Auto-Loop
+        const cTrack = document.getElementById('clientesTrack');
+        let cState = 0; 
+        setInterval(() => {
+            const step = window.innerWidth <= 900 ? 25 : 50; 
+            const isMobile = window.innerWidth <= 900;
+            const maxState = isMobile ? 3 : 1; 
+
+            if (cState < maxState) { 
+                cState++;
+            } else { 
+                cState = 0; 
+            }
+            cTrack.style.transform = `translateX(-${cState * step}%)`;
+        }, 7000);
+    </script>
+</body>
+</html>
