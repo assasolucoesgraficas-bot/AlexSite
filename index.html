@@ -49,7 +49,7 @@
         
         /* Menu Desktop */
         nav ul { display: flex; gap: 30px; }
-        nav ul li a { font-weight: 500; font-size: 0.9rem; opacity: 0.9; transition: var(--transition); color: white; }
+        nav ul li a { font-weight: 500; font-size: 0.9rem; opacity: 0.9; transition: var(--transition); color: white; cursor: pointer; }
         nav ul li a:hover { opacity: 1; text-decoration: underline; }
 
         .mobile-menu-icon { display: none; cursor: pointer; font-size: 2rem; color: white; margin-bottom: 5px; }
@@ -95,7 +95,8 @@
         .hero-slide.active { opacity: 1; z-index: 2; }
 
         /* SERVIÇOS */
-        .services { padding: 80px 8%; background-color: var(--color-bg-light); text-align: center; }
+        /* Ajuste de scroll-margin para o título não ficar colado no topo ao clicar no menu */
+        .services { padding: 80px 8%; background-color: var(--color-bg-light); text-align: center; scroll-margin-top: 100px; }
         .section-title { color: var(--color-dark); font-size: 2rem; font-weight: 700; margin-bottom: 50px; }
         .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         
@@ -143,7 +144,7 @@
         .stars { color: #FFD700; font-size: 0.9rem; }
 
         /* RODAPÉ */
-        footer { background: var(--gradient-main); color: var(--color-white); padding: 80px 8%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+        footer { background: var(--gradient-main); color: var(--color-white); padding: 80px 8%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; scroll-margin-top: 100px; }
         .footer-col { flex: 1; min-width: 250px; }
         .footer-logo { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .footer-logo img { height: 40px; width: auto; }
@@ -256,8 +257,8 @@
         <nav id="navMenu">
             <ul>
                 <li><a href="quemsomos.html">Quem somos</a></li>
-                <li><a href="#servicos-section">Serviços</a></li>
-                <li><a href="#rodape-section">Contato</a></li>
+                <li><a href="#servicos-section" onclick="toggleMenu()">Serviços</a></li>
+                <li><a href="#rodape-section" onclick="toggleMenu()">Contato</a></li>
             </ul>
         </nav>
     </header>
@@ -362,7 +363,14 @@
     </footer>
 
     <script>
-        function toggleMenu() { document.getElementById("navMenu").classList.toggle("active"); }
+        function toggleMenu() { 
+            const nav = document.getElementById("navMenu");
+            if (nav.classList.contains("active")) {
+                nav.classList.remove("active");
+            } else {
+                nav.classList.add("active");
+            }
+        }
 
         // Hero Slideshow
         const heroSlides = document.querySelectorAll('.hero-slide');
