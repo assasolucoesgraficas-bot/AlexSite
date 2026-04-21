@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --color-blue: #0F4C81;
@@ -16,19 +15,41 @@
             --color-dark: #050A30;
             --color-text: #444444;
             --color-white: #FFFFFF;
-            --color-bg-light: #F8F9FA;
+            /* FUNDO ALTERADO PARA UM TOM DE CONTRASTE REAL */
+            --color-bg-light: #e9ecef; 
             --gradient-main: linear-gradient(135deg, #0F4C81 0%, #8E1C66 100%);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         /* FONTE EQUILIBRADA */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--color-white); color: var(--color-text); overflow-x: hidden; scroll-behavior: smooth; font-size: 1.1rem; line-height: 1.6; }
+        
+        /* ALTERAÇÃO SOLICITADA: FUNDO COM COR VISÍVEL */
+        body { 
+            background: linear-gradient(180deg, #f8f9fa 0%, #dee2e6 100%); 
+            color: var(--color-text); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+        }
         
         ul { list-style: none; }
         a { text-decoration: none; color: inherit; }
         img { max-width: 100%; display: block; }
-
+        /* EFEITO DE BRILHO AO PASSAR O MOUSE */
+        section { position: relative; overflow: hidden; }
+        section::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.8s;
+            pointer-events: none;
+        }
+        section:hover::after { left: 150%; }
         /* HEADER */
         header {
             background: var(--gradient-main);
@@ -47,36 +68,44 @@
         nav ul li a { font-weight: 600; font-size: 0.9rem; color: white; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; transition: 0.3s; }
         nav ul li a:hover { opacity: 0.7; }
         .home-icon { font-size: 1.3rem; margin-right: 6px; }
-
         .page-content { display: block; }
         .page-content.hidden { display: none; }
-
         /* HERO */
         .hero { display: flex; align-items: center; justify-content: space-between; padding: 60px 8%; min-height: 70vh; }
         .hero-content { flex: 1; max-width: 550px; }
         .hero-title { color: var(--color-dark); font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
         .btn-primary { background-color: var(--color-pink); color: white; padding: 15px 35px; border-radius: 50px; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; display: inline-block; }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(194, 24, 91, 0.2); }
-
         .hero-image { flex: 1; height: 400px; position: relative; border-radius: 20px; overflow: hidden; margin-left: 40px; }
         .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1s; }
         .hero-slide.active { opacity: 1; }
-
         /* SERVIÇOS */
-        .services { padding: 60px 8%; text-align: center; background: var(--color-bg-light); }
+        .services { padding: 60px 8%; text-align: center; background: rgba(0,0,0,0.03); }
         .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
-        .service-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); flex: 1; min-width: 280px; max-width: 350px; }
+        .service-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); flex: 1; min-width: 280px; max-width: 350px; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-5px); }
         .service-img { width: 50px; height: 50px; margin: 0 auto 15px; filter: invert(21%) sepia(93%) saturate(1212%) hue-rotate(187deg) brightness(91%) contrast(96%); }
-
-        /* TESTEMUNHOS */
-        .testimonials { padding: 60px 8%; text-align: center; overflow: hidden; }
-        .testimonials-window { max-width: 1200px; margin: 0 auto; overflow: hidden; }
-        .testimonials-track { display: flex; transition: 0.8s; gap: 20px; }
-        .testimonial-card { background: #fff; border: 1px solid #eee; padding: 30px; border-radius: 15px; min-width: 300px; text-align: left; }
+        /* TESTEMUNHOS LÓGICA NOVA */
+        .testimonials { padding: 60px 8%; text-align: center; }
+        .testimonials-window { max-width: 900px; margin: 40px auto; position: relative; height: 250px; }
+        .testimonials-track { display: flex; justify-content: center; gap: 20px; position: relative; width: 100%; height: 100%; }
+        .testimonial-card { 
+            background: #fff; 
+            border: 1px solid #eee; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: left;
+            position: absolute;
+            width: calc(50% - 10px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .testimonial-card.show { opacity: 1; visibility: visible; transform: translateY(0); }
         .client-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
         .client-photo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--color-pink); }
         .stars { color: #FFD700; font-size: 0.9rem; }
-
         /* QUEM SOMOS */
         .about-section { padding: 60px 8%; }
         .about-block { display: flex; align-items: center; gap: 50px; margin-bottom: 70px; }
@@ -84,11 +113,9 @@
         .mosaic { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-width: 350px; }
         .mosaic img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .mosaic img:first-child { grid-row: span 2; height: 312px; }
-
         .mvv-container { background: var(--color-blue); color: white; padding: 50px 8%; margin: 60px -8.7%; text-align: center; }
         .mvv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
         .mvv-item h3 { font-size: 1.5rem; color: #8ecae6; margin-bottom: 10px; }
-
         /* RODAPÉ */
         footer {
             background: linear-gradient(135deg, #0F4C81 0%, #8E1C66 100%);
@@ -97,7 +124,6 @@
             position: relative;
             overflow: hidden;
         }
-
         footer::before {
             content: "";
             position: absolute;
@@ -108,7 +134,6 @@
             top: -100px;
             left: -100px;
         }
-
         .footer-main {
             display: flex;
             justify-content: space-between;
@@ -118,56 +143,14 @@
             position: relative;
             z-index: 1;
         }
-
-        .footer-col h4 {
-            font-size: 1rem;
-            color: #8ecae6;
-            margin-bottom: 5px;
-        }
-
-        .footer-col p {
-            font-size: 0.9rem;
-            color: #e0e0e0;
-        }
-
-        .footer-logo img {
-            height: 40px;
-            margin-right: 10px;
-            border-radius: 6px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            gap: 8px;
-        }
-
-        /* Social Icons & Actions Container */
-        .footer-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .social-link svg {
-            width: 28px;
-            height: 28px;
-            fill: #ccc;
-            transition: 0.3s;
-            display: block;
-        }
-
-        .social-link:hover svg {
-            fill: #fff;
-            transform: scale(1.2);
-        }
-
-        /* Hover específico para o WhatsApp */
-        .social-link.whatsapp:hover svg {
-            fill: #25D366;
-        }
-
+        .footer-col h4 { font-size: 1rem; color: #8ecae6; margin-bottom: 5px; }
+        .footer-col p { font-size: 0.9rem; color: #e0e0e0; }
+        .footer-logo img { height: 40px; margin-right: 10px; border-radius: 6px; }
+        .footer-logo { display: flex; align-items: center; font-weight: 600; gap: 8px; }
+        .footer-actions { display: flex; align-items: center; gap: 20px; }
+        .social-link svg { width: 28px; height: 28px; fill: #ccc; transition: 0.3s; display: block; }
+        .social-link:hover svg { fill: #fff; transform: scale(1.2); }
+        .social-link.whatsapp:hover svg { fill: #25D366; }
         .footer-bottom {
             text-align: center;
             margin-top: 30px;
@@ -176,13 +159,7 @@
             font-size: 0.75rem;
             color: #ddd;
         }
-
-        .leodition-link {
-            font-weight: 700;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
+        .leodition-link { font-weight: 700; color: #ffffff; text-decoration: none; }
         @media (max-width: 900px) {
             .hero { flex-direction: column; text-align: center; }
             .hero-image { margin-left: 0; margin-top: 30px; width: 100%; }
@@ -191,11 +168,12 @@
             .mvv-grid { grid-template-columns: 1fr; }
             .footer-main { flex-direction: column; text-align: center; }
             .footer-actions { justify-content: center; }
+            .testimonial-card { width: 100% !important; left: 0 !important; }
+            .testimonials-window { height: 350px; }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo" onclick="showPage('home')">
             <div class="logo-img-wrapper"><img src="LOGO1.png" alt="Logo"></div>
@@ -203,7 +181,6 @@
         </div>
         <nav><ul id="menuList"></ul></nav>
     </header>
-
     <main id="homePage" class="page-content">
         <section class="hero">
             <div class="hero-content">
@@ -218,7 +195,6 @@
                 <img src="IMG3.jpg" class="hero-slide">
             </div>
         </section>
-
         <section class="services">
             <h2 class="section-title">Nossos Serviços</h2>
             <div class="services-grid">
@@ -239,7 +215,6 @@
                 </div>
             </div>
         </section>
-
         <section class="testimonials">
             <h2 class="section-title">O que dizem nossos clientes</h2>
             <div class="testimonials-window">
@@ -276,7 +251,6 @@
             </div>
         </section>
     </main>
-
     <main id="aboutPage" class="page-content hidden">
         <section class="about-section">
             <div class="about-block">
@@ -291,7 +265,6 @@
                     <p>Nossa trajetória é marcada pela evolução constante das técnicas de design e pela busca incessante pela perfeição em cada acabamento.</p>
                 </div>
             </div>
-
             <div class="mvv-container">
                 <div class="mvv-grid">
                     <div class="mvv-item"><h3>Missão</h3><p>Transformar a comunicação visual de nossos clientes através de impressões de alta fidelidade e design estratégico.</p></div>
@@ -299,7 +272,6 @@
                     <div class="mvv-item"><h3>Valores</h3><p>Ética, transparência, compromisso com prazos e paixão por transformar ideias em realidade palpável.</p></div>
                 </div>
             </div>
-
             <div class="about-block" style="flex-direction: row-reverse;">
                 <div class="mosaic">
                     <img src="IMG4.png">
@@ -314,11 +286,10 @@
             </div>
         </section>
     </main>
-
     <footer id="contato-alvo">
         <div class="footer-main">
             <div class="footer-col">
-                <div class="footer-logo"><img src="LOGO.jpg"> Alex Soluções</div>
+                <div class="footer-logo"><img src="LOGO.jpg"> Alex Soluções Gráficas</div>
                 <p>Transformando ideias em impressões.</p>
                 <p>Qualidade, agilidade e design profissional.</p>
             </div>
@@ -340,14 +311,12 @@
             © 2026 Todos os direitos reservados | Desenvolvido por <a href="http://www.leodition.com.br" target="_blank" class="leodition-link">LEODITION</a>
         </div>
     </footer>
-
     <script>
         function showPage(page) {
             const home = document.getElementById('homePage');
             const about = document.getElementById('aboutPage');
             const menu = document.getElementById('menuList');
             const homeLink = `<li><a onclick="showPage('home')"><span class="home-icon">⌂</span> Início</a></li>`;
-
             if (page === 'about') { 
                 home.classList.add('hidden'); 
                 about.classList.remove('hidden'); 
@@ -355,15 +324,9 @@
                 home.classList.remove('hidden'); 
                 about.classList.add('hidden'); 
             }
-
-            menu.innerHTML = `
-                ${homeLink} 
-                <li><a onclick="showPage('about')">Quem Somos</a></li> 
-                <li><a onclick="scrollToContact()">Contato</a></li>
-            `;
+            menu.innerHTML = `${homeLink} <li><a onclick="showPage('about')">Quem Somos</a></li> <li><a onclick="scrollToContact()">Contato</a></li>`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
         function scrollToContact() {
             const home = document.getElementById('homePage');
             if (home.classList.contains('hidden')) {
@@ -375,20 +338,48 @@
                 document.getElementById('contato-alvo').scrollIntoView({ behavior: 'smooth' });
             }
         }
-
         window.onload = () => showPage('home');
-
-        const cTrack = document.getElementById('clientesTrack');
-        let cState = 0;
-        setInterval(() => {
-            if(!document.getElementById('homePage').classList.contains('hidden')) {
-                const isMobile = window.innerWidth <= 1000;
-                const step = isMobile ? (window.innerWidth * 0.8) : 320; 
-                cState = (cState < 3) ? cState + 1 : 0;
-                cTrack.style.transform = `translateX(-${cState * step}px)`;
+        /* LÓGICA DE DEPOIMENTOS DESCOMPASSADOS (Intercalados) */
+        const cards = document.querySelectorAll('.testimonial-card');
+        let indexL = 0; // Index para o slot da esquerda
+        let indexR = 1; // Index para o slot da direita
+        function updateLeft() {
+            if (window.innerWidth > 900) {
+                // Esconde quem estava na esquerda
+                cards.forEach(c => { if(c.style.left === "0px") c.classList.remove('show') });
+                // Mostra o próximo
+                cards[indexL].classList.add('show');
+                cards[indexL].style.left = "0px";
+                indexL = (indexL + 2) % cards.length;
+            } else {
+                // Mobile (1 por vez)
+                cards.forEach(c => c.classList.remove('show'));
+                cards[indexL].classList.add('show');
+                cards[indexL].style.left = "0px";
+                indexL = (indexL + 1) % cards.length;
             }
+        }
+        function updateRight() {
+            if (window.innerWidth > 900) {
+                // Esconde quem estava na direita
+                cards.forEach(c => { if(c.style.left.includes("50%")) c.classList.remove('show') });
+                // Mostra o próximo
+                cards[indexR].classList.add('show');
+                cards[indexR].style.left = "calc(50% + 10px)";
+                indexR = (indexR + 2) % cards.length;
+            }
+        }
+        // Inicia esquerda agora
+        updateLeft();
+        // Inicia direita com 5 segundos de atraso (o descompasso)
+        setTimeout(() => {
+            updateRight();
+            // Depois disso, a direita troca a cada 10s
+            setInterval(updateRight, 10000);
         }, 5000);
-
+        // A esquerda troca a cada 10s desde o início
+        setInterval(updateLeft, 10000);
+        /* SLIDE DO HERO */
         let currentSlide = 0;
         const slides = document.querySelectorAll('.hero-slide');
         setInterval(() => {
